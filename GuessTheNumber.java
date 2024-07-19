@@ -1,30 +1,39 @@
-import java.util.*;
-
-public class task1{
-    public static void main(String[] args) {
+import java.util.Random;
+import java.util.Scanner;
+public class GuessTheNumber {
+    public static void main() {
         Random random = new Random();
-        int randomNumber = random.nextInt(100) + 1;
-        System.out.print("Please enter the no. to start the game : ");
-        Scanner sc = new Scanner(System.in);
-        int x = 1;
-        while(x<6){
-            int n = sc.nextInt();
-            if (n<randomNumber && x<5) {
-                System.out.println("The number is greater than the given no.");
-            }
-            else if(n>randomNumber && x<5){
-                System.out.println("The number is lesser than the given no.");
-            }
-            else if(n!=randomNumber && x==5){
-                System.out.println("Sorry57, You are out of tries");
-                System.out.println("The correct answer is " + randomNumber);
-                System.out.println("Better luck next time");
-            }
-            else{
-                System.out.println("You have succesfully guessed the no.");
+        Scanner scanner = new Scanner(System.in);
+        int maxAttempts = 10; 
+        int numberToGuess = random.nextInt(100) + 1;
+        int numberOfAttempts = 0;
+        boolean hasGuessedCorrectly = false;
+
+        System.out.println("Welcome to the Guess the Number Game!");
+        System.out.println("I have selected a number between 1 and 100.");
+        System.out.println("You have " + maxAttempts + " attempts to guess it.");
+
+        while (numberOfAttempts < maxAttempts) {
+            System.out.print("Enter your guess: ");
+            int userGuess = scanner.nextInt();
+            numberOfAttempts++;
+
+            if (userGuess < numberToGuess) {
+                System.out.println("Too low! Try again.");
+            } else if (userGuess > numberToGuess) {
+                System.out.println("Too high! Try again.");
+            } else {
+                hasGuessedCorrectly = true;
                 break;
             }
-            x++;
         }
+
+        if (hasGuessedCorrectly) {
+            System.out.println("Congratulations! You guessed the number in " + numberOfAttempts + " attempts.");
+        } else {
+            System.out.println("Sorry, you did not guess the number. The number was " + numberToGuess + ".");
+        }
+
+        scanner.close();
     }
 }
